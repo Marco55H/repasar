@@ -73,6 +73,9 @@ public class PartesParchis {
 
 	}
 
+	/**
+	 * 
+	 */
 	void pintaTablero() {
 
 		for (int i = 0; i <= TAM_TABLERO; i++) {
@@ -86,11 +89,20 @@ public class PartesParchis {
 			}
 		}
 
+		tablero(nom1, ficha1);
+		tablero(nom2, ficha2);
+	}
+/**
+ * 
+ * @param nombre
+ * @param ficha
+ */
+	private void tablero(String nombre, int ficha) {
 		for (int j1 = 0; j1 <= TAM_TABLERO; j1++) {
 
 			if (j1 == 0) {
 
-				System.out.print(nom1);
+				System.out.print(nombre);
 
 				System.out.print("\tI");
 
@@ -100,33 +112,7 @@ public class PartesParchis {
 
 			} else {
 
-				if (j1 == ficha1 + 1) {
-
-					System.out.print("o");
-					System.out.print("\t");
-
-				} else {
-
-					System.out.print("\t");
-				}
-			}
-		}
-
-		for (int j2 = 0; j2 <= TAM_TABLERO; j2++) {
-
-			if (j2 == 0) {
-
-				System.out.print(nom2);
-
-				System.out.print("\tI");
-
-			} else if (j2 == TAM_TABLERO) {
-
-				System.out.println("\tF");
-
-			} else {
-
-				if (j2 == ficha2 + 1) {
+				if (j1 == ficha + 1) {
 
 					System.out.print("o");
 					System.out.print("\t");
@@ -139,21 +125,20 @@ public class PartesParchis {
 		}
 	}
 
+	/**
+	 * 
+	 * @param jugador
+	 */
 	void avanzaPosiciones(int jugador) {
 
-		tiraDados();
 		int pasado = 0;
 
 		if (jugador == 1) {
-			ficha1 = ficha1 + dado1 + dado2;
-			if (ficha1 > TAM_TABLERO) {
-				pasado = ficha1 - TAM_TABLERO;
-				ficha1 = TAM_TABLERO - pasado;
-			}
+			ficha1 = moverFicha(ficha1);
 		}
 
 		if (jugador == 2) {
-			ficha2 = ficha2+dado1 + dado2;
+			ficha2 = ficha2 + dado1 + dado2;
 			if (ficha2 > TAM_TABLERO) {
 				pasado = ficha2 - TAM_TABLERO;
 				ficha2 = TAM_TABLERO - pasado;
@@ -161,6 +146,24 @@ public class PartesParchis {
 		}
 	}
 
+	/**
+	 * 
+	 * @param ficha
+	 * @return
+	 */
+	private int moverFicha(int ficha) {
+		int pasado;
+		ficha = ficha + dado1 + dado2;
+		if (ficha > TAM_TABLERO) {
+			pasado = ficha - TAM_TABLERO;
+			ficha = TAM_TABLERO - pasado;
+		}
+		return ficha;
+	}
+
+	/**
+	 * 
+	 */
 	void estadoCarrera() {
 		if (ficha1 > ficha2) {
 			System.out.println("Va ganando el jugador " + nom1);
@@ -173,11 +176,11 @@ public class PartesParchis {
 
 	String esGanador() {
 		String cadena = "";
-		
+
 		if (ficha1 == TAM_TABLERO) {
-			cadena = "Ganó " + nom1;
+			cadena = nom1;
 		} else if (ficha2 == TAM_TABLERO) {
-			cadena = "Ganó " + nom2;
+			cadena = nom2;
 		}
 
 		return cadena;
